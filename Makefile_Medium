@@ -1,0 +1,17 @@
+#Medium size C project Makefile
+CC = gcc
+CFLAGS = -Wall -Wextra -std=c11
+LDFLAGS = -lm -lpthread
+INCLUDE_PATHS = -I./include
+SOURCES = main.c foo.c bar.c
+OBJECTS = $(SOURCES:.c=.o)
+EXECUTABLE = myprogram
+all: $(EXECUTABLE)
+$(EXECUTABLE): $(OBJECTS)
+	$(CC) $(CFLAGS) $(LDFLAGS) $(INCLUDE_PATHS) $(OBJECTS) -o $(EXECUTABLE)
+%.o: %.c
+	$(CC) $(CFLAGS) $(INCLUDE_PATHS) -c $< -o $@
+clean:
+	rm -f $(EXECUTABLE) $(OBJECTS)
+run: $(EXECUTABLE)
+	./$(EXECUTABLE)
